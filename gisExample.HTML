@@ -1,0 +1,103 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>地图api调用例子</title>
+<link rel="stylesheet" href="http://192.168.1.20:8888/arcgis_js_api/library/3.4/3.4compact/js/dojo/dijit/themes/tundra/tundra.css"> 
+<link rel="stylesheet" href="http://192.168.1.20:8888/arcgis_js_api/library/3.4/3.4compact/js/dojo/dijit/themes/claro/claro.css">
+<link rel="stylesheet" href="http://192.168.1.20:8888/arcgis_js_api/library/3.4/3.4compact/js/esri/css/esri.css">
+  <style> 
+    #BasemapToggle { 
+      position: absolute; 
+      top: 20px; 
+      right: 20px; 
+      z-index: 50; 
+    } 
+  </style> 
+		<script type="text/javascript">
+			djConfig = {
+				parseOnLoad : true
+			}
+		</script>
+		<script type="text/javascript" src="http://192.168.1.20:8888/arcgis_js_api/library/3.4/3.4compact/init.js"></script>
+<!--
+		<link rel="stylesheet" href="http://localhost:9000/arcgis_js_api/library/3.7/jsapi/js/dojo/dijit/themes/tundra/tundra.css">
+		<link rel="stylesheet" href="http://localhost:9000/arcgis_js_api/library/3.7/jsapi/js/esri/css/esri.css">
+		<script type="text/javascript" src="http://localhost:9000/arcgis_js_api/library/3.7/jsapi/init.js"></script>
+-->
+		<script>
+			function gislog(ctrl, msg) {
+				document.getElementById(ctrl).value = msg.toString();
+			};
+		</script>
+		<script type="text/javascript" src="./gis.js" charset="GBK"></script>
+		<script type="text/javascript" src="./gisLayer.js" charset="GBK"></script>
+		<script type="text/javascript" src="./showMove.js" charset="GBK"></script>
+		<script type="text/javascript" src="./drawSection.js"></script>
+		<script type="text/javascript" src="../js/flyPlan.js" charset="GBK"></script>
+	</head>
+	<body class="tundra">
+		GIS.JS实现功能 :
+		1.
+		<button dojoType="dijit.form.Button" onClick="executePointQuery()">
+			点击地图根据位置返回机场信息
+		</button>
+		2.输入机场代号/名称:
+		<input type="text" id="searchText" value="ZUUU" />
+		<input type="button" value="Find" onclick="executeAPQuery(dojo.byId('searchText').value);" />
+		3.
+		<button dojoType="dijit.form.Button" onClick="exam1()">
+			点击地图画线返回点集合
+		</button>
+		4.
+		<button dojoType="dijit.form.Button" onClick="clearDraw()">
+			取消选择
+		</button>
+		<br/>
+		输入点集合:
+		<input type="text" id="pointText" value="[[104.736, 31.43458],[104.83, 31.41],[104.92, 31.40],[104.99, 31.42],[104.9879, 31.333],[104.978, 31.25],[104.85, 31.186],[104.749, 31.08],[104.68, 31.045],[104.598, 31.0256],[104.546, 30.986],[104.415, 30.97],[104.33, 30.95],[104.32, 30.875],[104.376, 30.816],[104.3859, 30.8653],[104.3957, 30.87]]" size="120"/>
+		5.
+		<input type="button" value="画线" onclick="executeDrawLine(dojo.byId('pointText').value, esri.symbol.SimpleLineSymbol.STYLE_SOLID, [255,0,0], 3);" />
+		6.
+		<input type="button" value="隐藏缩放栏" onclick="hideZoomSlider();" />
+		7.
+		<input type="button" value="显示缩放栏" onclick="showZoomSlider();" />
+		8.
+		<input type="button" value="判断空域" onclick="judgeLineInterSects(dojo.byId('pointText').value);" />
+		9.
+		<button onclick="startMove()">
+			画移动轨迹
+		</button>
+		<br/>
+
+		<div id="map" style="width:100%; height:800px; border:1px solid #000;" >
+		    <div id="BasemapToggle"></div> 
+			<div id="typhoonIcon" style="position: absolute;width: 10px; height: 10px; background-color: #FFFF00;z-index:99999;display:none"></div>
+			<span id="info" style="position:absolute; right:25px; bottom:5px; color:#000; z-index:50;"></span>
+		</div>
+  <div id="chartNode" data-dojo-type="dojox.charting.widget.Chart2D"  style="position: absolute; z-index: 10000; width:400px;height:200px;margin-left:200px;margin-right:auto;bottom: 50px;;"></div>
+		<div dojotype="dijit.Menu" targetNodeIds="map" style="display:none" >
+			<div dojoType="dijit.MenuItem">
+				111
+				<script type="dojo/method" event="onClick" args="evt">
+					alert("111");
+				</script>
+			</div>
+			<div dojoType="dijit.MenuItem">
+				222
+				<script type="dojo/method" event="onClick" args="evt">
+					alert("222");
+				</script>
+			</div>
+			<div dojoType="dijit.PopupMenuItem">
+				<span>baz</span>
+				<div dojoType="dijit.Menu">
+					<div dojoType="dijit.MenuItem">
+						yabba
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+</html>
